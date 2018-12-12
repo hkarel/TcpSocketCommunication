@@ -1,0 +1,25 @@
+#!/bin/bash
+
+set -u
+
+jobs=$(nproc)
+mem_size=$(free -m | sed '2!d' | sed 's/  */ /g' | cut -d' ' -f2)
+[ "$mem_size" -lt 2100 ] && jobs=4
+echo "jobs: $jobs"
+
+build_mode=release
+
+git_branch=$(git status -b -s | head -n1 | sed 's/\./ /' | cut -d' ' -f2)
+build_subdir=${build_mode}-${git_branch}
+build_dir=./build/$build_subdir
+
+set -e
+qbs build \
+    --file tcpsocket_project.qbs \
+    --build-directory ./build \
+    --command-echo-mode command-line \
+    --jobs $jobs \
+    --no-install \
+    qbs.buildVariant:$build_mode \
+    config:$build_subdir \
+    profile:qt48
