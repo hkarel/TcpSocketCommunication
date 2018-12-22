@@ -10,12 +10,14 @@ Product {
 
     Depends { name: "cpp" }
     //Depends { name: "Compression" }
+    Depends { name: "RapidJson" }
     Depends { name: "Yaml" }
     Depends { name: "Qt"; submodules: ["core", "network"] }
 
     cpp.archiverName: GccUtl.ar(cpp.toolchainPathPrefix)
     cpp.defines: project.cppDefines
-    cpp.cxxFlags: project.cxxFlags //.concat(["-Wpedantic"]);
+    cpp.cxxFlags: project.cxxFlags
+    cpp.cxxLanguageVersion: project.cxxLanguageVersion
 
     property var exportIncludePaths: [
         "./",
@@ -33,11 +35,11 @@ Product {
         "shared/logger/config.h",
         "shared/logger/logger.cpp",
         "shared/logger/logger.h",
+        "shared/qt/communication/bserialize_space.h",
         "shared/qt/communication/commands_base.cpp",
         "shared/qt/communication/commands_base.h",
         "shared/qt/communication/commands_pool.cpp",
         "shared/qt/communication/commands_pool.h",
-        "shared/qt/communication/communication_bserialize.h",
         "shared/qt/communication/func_invoker.h",
         "shared/qt/communication/functions.cpp",
         "shared/qt/communication/functions.h",
@@ -47,10 +49,16 @@ Product {
         "shared/qt/communication/logger_operators.h",
         "shared/qt/communication/message.cpp",
         "shared/qt/communication/message.h",
+        "shared/qt/communication/serialization/json.cpp",
+        "shared/qt/communication/serialization/json.h",
+        "shared/qt/communication/serialization/bproto.cpp",
+        "shared/qt/communication/serialization/bproto.h",
+        //"shared/qt/communication/serialization/bproto.cpp",
+        //"shared/qt/communication/serialization/bproto.h",
         "shared/qt/communication/transport/base.cpp",
         "shared/qt/communication/transport/base.h",
-        //"shared/qt/communication/transport/local.cpp",
-        //"shared/qt/communication/transport/local.h",
+        "shared/qt/communication/transport/local.cpp",
+        "shared/qt/communication/transport/local.h",
         "shared/qt/communication/transport/tcp.cpp",
         "shared/qt/communication/transport/tcp.h",
         //"shared/qt/communication/transport/udp.cpp",
@@ -67,8 +75,10 @@ Product {
         "shared/qt/thread/qthreadex.h",
         //"shared/qt/version/version_number.cpp",
         //"shared/qt/version/version_number.h",
-        "shared/qt/bserialize.cpp",
-        "shared/qt/bserialize.h",
+        //"shared/qt/bserialize.cpp",
+        //"shared/qt/bserialize.h",
+        //"shared/qt/jserialize.cpp",
+        //"shared/qt/jserialize.h",
         "shared/qt/quuidex.h",
         "shared/qt/stream_init.h",
         "shared/thread/thread_base.cpp",
@@ -83,8 +93,6 @@ Product {
         "shared/clife_ptr.h",
         "shared/container_ptr.h",
         "shared/list.h",
-        //"shared/ring_buffer.cpp",
-        //"shared/ring_buffer.h",
         "shared/safe_singleton.h",
         "shared/simple_ptr.h",
         "shared/spin_locker.h",

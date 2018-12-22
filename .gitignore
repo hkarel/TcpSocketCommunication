@@ -1,4 +1,5 @@
 build/*
+build_clients/*
 
 *.qbs.user
 *.autosave

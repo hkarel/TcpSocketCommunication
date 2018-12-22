@@ -3,18 +3,19 @@ import QbsUtl
 import ProbExt
 
 Product {
-    name: "Server1"
-    targetName: "server1"
+    name: "Server2"
+    targetName: "server2"
     condition: true
 
     type: "application"
     destinationDirectory: "./bin"
 
     Depends { name: "cpp" }
+    Depends { name: "cppstdlib" }
     Depends { name: "SharedLib" }
+    Depends { name: "RapidJson" }
     Depends { name: "Yaml" }
     Depends { name: "Qt"; submodules: ["core", "network"] }
-
 
     cpp.defines: {
         var def = project.cppDefines;
@@ -32,6 +33,11 @@ Product {
         Qt.core.cpp.includePaths
     )
 
+    cpp.rpaths: QbsUtl.concatPaths(
+        cppstdlib.path,
+        "$ORIGIN/../lib"
+    )
+
     cpp.dynamicLibraries: {
         var libs = [
             "pthread",
@@ -40,9 +46,11 @@ Product {
     }
 
      files: [
-        "server1.cpp",
-        "server1_appl.cpp",
-        "server1_appl.h",
+        "../communication/commands.cpp",
+        "../communication/commands.h",
+        "server2.cpp",
+        "server2_appl.cpp",
+        "server2_appl.h",
     ]
 
 //    property var test: {

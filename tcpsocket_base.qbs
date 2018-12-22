@@ -8,7 +8,7 @@ Project {
 
     property var cppDefines: {
         var def = [
-            "__cplusplus=201103L",
+            "QDATASTREAM_VERSION=QDataStream::Qt_4_8",
             "BPROTOCOL_VERSION_LOW=0",
             "BPROTOCOL_VERSION_HIGH=0",
         ];
@@ -20,7 +20,8 @@ Project {
     }
 
     property var cxxFlags: [
-        "-std=c++11",
+        //"-std=c++14",
+        //"-msse4",
         "-ggdb3",
         "-Winline",
         "-Wall",
@@ -28,4 +29,5 @@ Project {
         "-Wno-unused-parameter",
         "-Wno-variadic-macros",
     ]
+    property string cxxLanguageVersion: "c++14"
 }

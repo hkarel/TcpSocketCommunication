@@ -3,18 +3,19 @@ import QbsUtl
 import ProbExt
 
 Product {
-    name: "Server1"
-    targetName: "server1"
+    name: "JSerialize (UTest)"
+    targetName: "jserialize-utest"
     condition: true
 
     type: "application"
     destinationDirectory: "./bin"
 
     Depends { name: "cpp" }
+    Depends { name: "cppstdlib" }
     Depends { name: "SharedLib" }
+    Depends { name: "RapidJson" }
     Depends { name: "Yaml" }
     Depends { name: "Qt"; submodules: ["core", "network"] }
-
 
     cpp.defines: {
         var def = project.cppDefines;
@@ -32,6 +33,11 @@ Product {
         Qt.core.cpp.includePaths
     )
 
+    cpp.rpaths: QbsUtl.concatPaths(
+        cppstdlib.path,
+        "$ORIGIN/../lib"
+    )
+
     cpp.dynamicLibraries: {
         var libs = [
             "pthread",
@@ -40,9 +46,9 @@ Product {
     }
 
      files: [
-        "server1.cpp",
-        "server1_appl.cpp",
-        "server1_appl.h",
+        //"../communication/commands.cpp",
+        //"../communication/commands.h",
+        "jserialize_utest.cpp",
     ]
 
 //    property var test: {
